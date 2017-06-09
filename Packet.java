@@ -6,11 +6,13 @@ public class Packet {
     //these two are the HEADER of the packet
     private int seqNum; // should this be a char??
     private int checkSum;
+    private String payload;
+    private String strToSend;
 
-    private  char[] payload; // remember 3 x19 = 57  must add 1 = 58
+    // private  char[] payload; // remember 3 x19 = 57  must add 1 = 58
     //constructor
 
-    public Packet (int sN, char[] pL ) {
+    public Packet (int sN, String pL ) {
 
         //set the attributes according to arguments passed
         seqNum = sN;
@@ -20,20 +22,62 @@ public class Packet {
 
     public void calcChecksum() {
 
-        int answer;
-
+        int sum = 0;
         // do the complicated checksum calc here
-        answer = 42;
-
-        checkSum = answer;
+        // loop for the length of the string
+        for (int i = 0; i < payload.length() ; i++) {
+            char x = payload.charAt(i);
+            int a = (int) x;
+            sum += a;
+        }
+        sum = sum % 256;
+        checkSum = sum;
     }
 
+    //take number and pad to 3 characters eg 10 --> "010"  56 --> "056"   255 --> "255"
+    public String pad(int num) {
+
+
+        String s = Integer.toString(num);
+
+        if (num < 10) {
+            //pad with two 0
+            s = "00" + s;
+
+        } else if (num < 100) {
+            //PAD WITH one 0
+            s = "0" + s;
+        }
+
+        return s;
+    }
+
+
+    public void calcStrToSend() {
+
+
+        strToSend = pad(seqNum) + pad(checkSum);
+
+        for (int i = 0; i < payload.length(); i++) {
+            char c = payload.charAt(i);
+            int ascii = (int) c;
+            strToSend += pad(ascii);
+
+        }
+
+        int x=127;
+        char asciiNull = (char) x;
+
+        strToSend+=asciiNull;
+    }
     // write a method that allows a user of this class to gain some insight into attributes and methods
     public void TellMeAboutYourself() {
 
-        System.out.println("my seq num is", seqNum);
-        System.out.println("my checksum is", checkSum);
-        System.out.println("my payload", payload);
+        System.out.println("my seq num is " + seqNum);
+        System.out.println("my checksum is " +checkSum);
+        System.out.println("my payload " +payload);
+        System.out.println("my string to send  " +strToSend);
+        System.out.println("my string to send  is this long " +strToSend.length());
 
 
     }
