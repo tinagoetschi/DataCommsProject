@@ -27,13 +27,39 @@ add a NULL character to the end to get a round 64 (2^6) size.
 ### the *Packet* class
 This class implements one packet of data that will be the basic unit of communication
 Every message sent will be broken into these packets and then sent (this sending will be simulated)
-The rules (protocols) for our packets are as follows:
+The rules (protocols) for our packets are explained above
+#### attributes ####
+1) sequence number
+2) checksum
+3) string to send
+#### methods ####
+1) TellMeAboutYourself - a method that prints out the private attribute values
+3) calcChecksum - calculates the checksum given the payload
+2) calcStrToSend - takes the payload and sequence number, calculates a checksum and the string to send 
+3) Packet - constructor that creates a packet given a sequence number as an int and a payload as a string
+4) pad - a helper method that pads ASCII codes less than 3 digits into 3 digit strings (eg 99 into '099') 
 
 ### the *DataCommsMachine* class
 This class has both sending and receiving powers. 
 In the sender the message is broken into packets, the sequence number and checksum is added.
 In the receiver each packet is checked for errors (asked to be resent by sequence number if there are errors)
 then the message is reassembled in order and passed back to the main program.
+#### attributes ####
+1) packetList
+
+#### methods ####
+0) preparePackets - takes a message and breaks into the list of Packets to then send via a 
+[packet switching network](https://en.wikipedia.org/wiki/Packet_switching)
+
+1) reassemblePackets - takes an unordered list of Packets and puts them in order
+
+!!!! 2) checkChecksum - calculates a checksum on a packet!!!!
+
+3) reqResend - ask the sender to resend a particular packet defined by the sequence number
+
+4) receivePacket - obtains a packet
+
+5) sendPacket - sends a packet to another DataCommsMachine
 
 ### the *mainProgram* class
 This class implements the main program (and the main method) that will be used to test our packets
