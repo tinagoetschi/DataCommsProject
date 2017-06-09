@@ -35,7 +35,7 @@ public class Packet {
     }
 
     //take number and pad to 3 characters eg 10 --> "010"  56 --> "056"   255 --> "255"
-    public String pad(int num) {
+    private String pad(int num) {
 
 
         String s = Integer.toString(num);
@@ -65,9 +65,16 @@ public class Packet {
 
         }
 
+        //set up the NULL
         int x=127;
         char asciiNull = (char) x;
 
+        //if the packet payload is less than 19 groups of 3 pad with NULLs up to 63 characters
+        while (strToSend.length()< 63) {
+            strToSend+=asciiNull;
+        }
+
+        //FINALLY ADD ONE EXTRA NULL character to get to 64 chars
         strToSend+=asciiNull;
     }
     // write a method that allows a user of this class to gain some insight into attributes and methods
