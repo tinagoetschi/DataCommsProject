@@ -9,4 +9,4 @@ Extended Diploma in CS - OO Programming Computer Systems Data Comms Protocol Pro
 |A4 Algorithm design  • Describing a step-by-step strategy to solve a problem. |F2 Flow charts and system diagrams  • The use of flow charts and diagrams to represent data flow in and between computer systems.  • The use, application and interpretation of flow charts and diagrams to solve problems.    |Now put it all together into a coherent algorithm  &/ flowchart|
 | D2 Object-orientated programming  • Write code using object orientated programming paradigms in terms of:  o structure: – classes – objects/instances o features: – encapsulation  – data hiding – reusability.  • Debug and write code written in Java| |Now write the code that implements your design|
 
-[Functional Specification  here](Functionspec.md)
+[Functional Specification  here](functionSpec.md)
